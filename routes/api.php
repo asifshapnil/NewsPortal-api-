@@ -7,16 +7,11 @@ use App\User;
 use App\Model\Post;
 
 
+
+
 Route::group(['middleware' => 'api'], function () {
 
-    Route::get('getMe', function(){
-            Post::create([
-                'user_id' => Auth::user()->id,
-                'heading' => 'My First post',
-                'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae possimus ut nobis nam nostrum laborum illum maiores dolor. Suscipit, maiores assumenda sunt exercitationem ipsa unde vel optio nobis odio iusto.'
-            ]);
-
-    });
+    Route::get('get-all-post-guest-user', 'GuestUserController@getAllPostByCategory');
 
     Route::group(['prefix'=> 'auth'], function() {
 
@@ -41,6 +36,26 @@ Route::group(['middleware' => 'api'], function () {
         Route::get('all-roles', 'AdminController@getAllRoles');
         Route::get('all-users', 'AdminController@getAllUsers');
 
+        Route::post('create-category', 'AdminController@createCategory');
+        Route::get('get-all-categories', 'AdminController@getAllCategories');
+
+
+
+    });
+
+    Route::group(['middleware' => ['role:contributor|admin']], function () {
+        Route::post('create-post', 'ContributorController@createPost');
+        Route::post('upload-image/{postId}', 'ContributorController@uploadImage');
+        Route::post('update-post', 'ContributorController@updatePost');
+        Route::get('remove-post/{postId}', 'ContributorController@removePost');
+        Route::get('get-user-category', 'ContributorController@getUserCategory');
+
+
+    });
+
+    Route::group(['middleware' => ['role:editor|admin']], function () {
+        Route::get('get-all-post-editor', 'EditorController@getAllPosts');
+        Route::get('approve-post/{postId}', 'EditorController@approvePost');
 
     });
 

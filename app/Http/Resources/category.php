@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Post extends JsonResource
+class category extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,7 @@ class Post extends JsonResource
     {
         return [
             'id' => $this->id,
-            'heading' => $this->heading,
-            'body' => $this->body,
-            'imagePath' => asset('images/'.$this->image)
+            'categoryName' => $this->categoryName
         ];
         // return parent::toArray($request);
     }

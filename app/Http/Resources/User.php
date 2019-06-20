@@ -5,6 +5,8 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Post as PostResource;
 use App\Http\Resources\Role as RoleResource;
+use App\Http\Resources\Category as CategoryResource;
+
 
 class User extends JsonResource
 {
@@ -22,6 +24,7 @@ class User extends JsonResource
             'email' => $this->email,
             // 'posts' => PostResource::collection($this->posts),
             'roles' => RoleResource::collection($this->roles),
+            'category' => new CategoryResource($this->category),
             'access_token' => $this->access_token
         ];
 

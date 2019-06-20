@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Spatie\Permission\Models\Role;
+use App\Model\Category;
 use App\Http\Resources\AllRoles as AllRoleResource;
 
 use App\Http\Resources\UserCollection as UserCollectionResource;
@@ -16,11 +17,18 @@ class AdminController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
+
+    public function getAllCategories() {
+        $categories =  Category::all();
+        return response()->json($categories);
+    }
+
     public function createUser(Request $request) {
         $createdUuser = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
+            'category_id' => $request->categoryId
         ]);
 
         $createdUuser = User::find($createdUuser->id);
@@ -70,6 +78,14 @@ class AdminController extends Controller
         $user = User::find($userId);
         $user->removeRole($role);
         return response()->json(['Role Removed Successfully for The User']);
+
+    }
+
+    public function createCategory(Request $request) {
+        Category::create([
+            'categoryName' => $request->categoryName
+        ]);
+        return response()->json(['Category Created  Successfully']);
 
     }
 
