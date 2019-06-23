@@ -5,6 +5,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\User;
 use App\Model\Post;
+use App\Model\Category;
 
 
 
@@ -12,6 +13,8 @@ use App\Model\Post;
 Route::group(['middleware' => 'api'], function () {
 
     Route::get('get-all-post-guest-user', 'GuestUserController@getAllPostByCategory');
+    Route::get('get-cover-post', 'GuestUserController@getLatestPostAllCategory');
+    Route::get('get-post/{id}', 'GuestUserController@getPost');
 
     Route::group(['prefix'=> 'auth'], function() {
 

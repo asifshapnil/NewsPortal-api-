@@ -3,8 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Post as PostCollectionResource;
 
-class Post extends JsonResource
+class getLatestPostWithCategory extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +17,8 @@ class Post extends JsonResource
     {
         return [
             'id' => $this->id,
-            'category' => $this->category->categoryName,
-            'heading' => $this->heading,
-            'body' => $this->body,
-            'count' => $this->count,
-            'imagePath' => asset('images/'.$this->image)
+            'categoryName' => $this->categoryName,
+            'posts' => PostCollectionResource::collection($this->posts->take(-1)),
         ];
         // return parent::toArray($request);
     }

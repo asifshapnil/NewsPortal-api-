@@ -25,7 +25,7 @@ class ContributorController extends Controller
         Auth::user()->posts()->create([
             'heading' => $request->heading,
             'body' => $request->body,
-            'categoryId' => Auth::user()->category_id
+            'category_id' => Auth::user()->category_id
         ]);
 
         return response()->json('Post created Successfully');
