@@ -34,6 +34,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        // dd('1');
         $credentials = $request->only('name', 'password');
 
         if ($token = $this->guard()->attempt($credentials)) {
@@ -42,7 +43,6 @@ class AuthController extends Controller
             $user = Auth::user();
             $user->access_token = $access_token;
             return new UserResource($user);
-
 
         }
 
@@ -58,6 +58,7 @@ class AuthController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->category_id = $request->category_id;
         $user->password = bcrypt($request->password);
         $user->save();
 

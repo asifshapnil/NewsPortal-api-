@@ -5,13 +5,22 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\User;
 use App\Model\Post;
+use App\Model\Category;
+
 
 
 
 
 Route::group(['middleware' => 'api'], function () {
 
+    Route::get('getMe', function() {
+       Category::create([
+           'categoryName' => 'politics'
+       ]);
+    });
+
     Route::get('get-all-post-guest-user', 'GuestUserController@getAllPostByCategory');
+    Route::get('get-cover-post', 'GuestUserController@LatestPostByCategory');
 
     Route::group(['prefix'=> 'auth'], function() {
 
