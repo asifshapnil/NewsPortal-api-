@@ -18,7 +18,7 @@ class getLatestPostWithCategory extends JsonResource
         return [
             'id' => $this->id,
             'categoryName' => $this->categoryName,
-            'posts' => PostCollectionResource::collection($this->posts->take(-1)),
+            'posts' => PostCollectionResource::collection($this->posts->where('isMedia', 0)->take(-1)),
         ];
         // return parent::toArray($request);
     }

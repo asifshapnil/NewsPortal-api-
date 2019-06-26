@@ -31,16 +31,20 @@ class ContributorController extends Controller
         return response()->json('Post created Successfully');
     }
 
-    public function UploadImage(Request $request, $postId) {
+    public function UploadFile(Request $request, $postId, $isMedia) {
         $post = Post::find($postId);
         
-        if ($request->hasFile('postImage')) {
-            $image = $request->file('postImage');
-            $filename = time() . "." . $image->getClientOriginalExtension();
-            $location = public_path('images/' . $filename);
-            image::make($image)->resize(800, 400)->save($location);
+        if ($request->hasFile('postFile')) {
+            $file = $request->file('postFile');
+            $filename = time() . "." . $file->getClientOriginalExtension();
+            // $location = public_path('images/' . $filename);
+            $location = public_path('images/');
+
+            // image::make($image)->resize(800, 400)->save($location);
+            $file->move($location, $filename);
             $post->image = $filename;
           }
+          $post->isMedia = $isMedia;
           $post->save();
 
           return response()->json('Image Uploaded Successfully');
