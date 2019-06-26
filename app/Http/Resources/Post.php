@@ -20,6 +20,7 @@ class Post extends JsonResource
             'heading' => $this->heading,
             'body' => $this->body,
             'count' => $this->count,
+            'isMedia' => $this->isMedia,
             'imagePath' => asset('images/'.$this->image)
         ];
         // return parent::toArray($request);
