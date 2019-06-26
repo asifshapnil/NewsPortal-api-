@@ -31,18 +31,19 @@ class GuestUserController extends Controller
     }
 
     public function getWeeklyPopulars() {
-        $pupolarThisWeek = Post::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $pupolarThisWeek = Post::where('isMedia', 0)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+                            ->take(6)->orderBy('count', 'DESC')->get();
         return new postCollectionResource($pupolarThisWeek);
     }
 
     public function getBreakingNews() {
         $breakingNews = Post::where('isBreakingNews', 1)->get();
-        return new postCollectionResource($breakingNews);    
+        return new postCollectionResource($breakingNews);
     }
 
     public function getMediaOfTheWeek() {
         $mediaPost = Post::where('isMedia', 1)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        return new postCollectionResource($mediaPost);    
+        return new postCollectionResource($mediaPost);
     }
 
     public function getPopuparthisMonth() {
@@ -50,7 +51,7 @@ class GuestUserController extends Controller
         $post = Post::where('isMedia', 0)->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
                ->take(6)->orderBy('count', 'DESC')->get();
                 // return $post;
-        return new postCollectionResource($post);    
+        return new postCollectionResource($post);
 
     }
 }
