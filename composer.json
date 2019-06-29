@@ -13,6 +13,7 @@
         "intervention/image": "^2.4",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
+        "mtownsend/read-time": "^1.1",
         "spatie/laravel-permission": "^2.37",
         "tymon/jwt-auth": "^1.0.0-rc.2"
     },

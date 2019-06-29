@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Mtownsend\ReadTime\ReadTime;
 
 class Post extends JsonResource
 {
@@ -21,6 +22,7 @@ class Post extends JsonResource
             'heading' => $this->heading,
             'body' => $this->body,
             'count' => $this->count,
+            'readingTime' => (new ReadTime($this->body))->get(),
             'isMedia' => $this->isMedia,
             'imagePath' => asset('images/'.$this->image),
             'created_at' => $this->created_at

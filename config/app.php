@@ -169,6 +169,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Appointer\Swaggervel\SwaggervelServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Mtownsend\ReadTime\Providers\ReadTimeServiceProvider::class,
+
 
         /*
          * Application Service Providers...
